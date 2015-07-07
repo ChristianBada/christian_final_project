@@ -1,0 +1,28 @@
+<h1><%= @topic.name %> Discussions</h1>
+<p><%= link_to "Back To Boards", topics_path %></p>
+<p><%= link_to "Add Discussion", new_discussion_path, method: :get, class: 'btn btn-primary' %></p>
+<table class="table table-bordered" id="topic-table">
+  <thead>
+  	<tr>
+  		<th>Discussion Name</th>
+  		<th>Info</th>
+  	</tr>
+  </thead>
+  <tbody>
+  	<% @discussions.each do |discussion| %>
+  	<tr>
+  		<td>
+  			<%= link_to discussion.name, discussion_path(:id => discussion.id) %>
+  			<br />
+  			Description: <%= discussion.description %>! <i></i>
+        <div class="discussion-delete">
+          <%= link_to "Delete Discussion", discussion_path(discussion), method: :delete, data: {confirm: "Are you sure you want to delete this discussion?"} %>
+        </div>
+  		</td>
+  		<td>
+
+  		</td>
+  	</tr>
+  	<% end %>
+  </tbody>
+</table>

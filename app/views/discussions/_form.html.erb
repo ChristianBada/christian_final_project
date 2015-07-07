@@ -1,0 +1,11 @@
+<%= simple_form_for @discussion do |f| %>
+
+
+  <%= f.input :name %>
+  <%= f.input :description, as: :text %>
+  <p>Topic: 
+<%=  select("discussion", "topic_id", Topic.all.collect {|t| [ t.name, t.id ] }, {prompt: 'Select topic'}) %>
+</p>
+  <%= f.button :submit %>
+
+<% end %>

@@ -1,0 +1,33 @@
+<h1><%= @discussion.name %></h1>
+
+<p><%= link_to "Back to Discussions", topic_path(@discussion.topic_id) %></p>
+<p><%= link_to "Add Post", new_post_path(:discussion_id => @discussion.id), method: :get, class: 'btn btn-primary' %></p>
+<table class="table table-bordered" id="topic-table">
+  <thead>
+  	<tr>
+  		<th>Post Title</th>
+  		<th>Info</th>
+  	</tr>
+  </thead>
+  <tbody>
+  	<% @posts.each do |post| %>
+  	<tr>
+  		<td class= "post-col-1">
+        <div style="border-bottom: 1px solid black; margin-bottom: 5px;">
+  			<%= post.title %>
+  			</div>
+  			<%= post.text %> <i></i>
+  			<hr />
+        <div class="post-delete">
+          <%= link_to "Delete Post", post_path(post), method: :delete, data: {confirm: "Are you sure you want to delete this post?"}, input_html: { :discussion_id => @discussion.id } %>
+        </div>
+  		</td>
+  		<td class="post-col-2">
+        <% @user = User.find_by_id(post.user_id) %>
+        <span>Posted by: <%= link_to @user.username, user_path(post.user_id) %></span><br />
+        <span>Member since: <%= @user.created_at.to_date %></span>
+  		</td>
+  	</tr>
+  	<% end %>
+  </tbody>
+</table>

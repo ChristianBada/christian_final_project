@@ -1,0 +1,24 @@
+<h1>Forum</h1>
+
+<table class="table table-bordered" id="topic-table">
+  <thead>
+  	<tr>
+  		<th>Topic</th>
+  		<th>Info</th>
+  	</tr>
+  </thead>
+  <tbody>
+  	<% @topics.each do |topic| %>
+  	<tr>
+  		<td>
+  			<%= link_to topic.name, topic_path(topic) %>
+  			<br />
+  			Description: <i><%= topic.description %></i>
+  		</td>
+  		<td>
+
+  		</td>
+  	</tr>
+  	<% end %>
+  </tbody>
+</table>

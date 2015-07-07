@@ -11,13 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706174306) do
+ActiveRecord::Schema.define(version: 20150707201041) do
+
+  create_table "discussions", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "topic_id"
+  end
+
+  add_index "discussions", ["topic_id"], name: "index_discussions_on_topic_id"
+
+  create_table "posts", force: :cascade do |t|
+    t.integer  "discussion_id"
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "text"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "posts", ["discussion_id"], name: "index_posts_on_discussion_id"
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
+
+  create_table "topics", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.string   "date_of_birth"
+    t.date     "date_of_birth"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username",               default: "", null: false
@@ -30,6 +59,10 @@ ActiveRecord::Schema.define(version: 20150706174306) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
